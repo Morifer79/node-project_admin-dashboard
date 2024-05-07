@@ -10,8 +10,6 @@ const router = express.Router();
 
 router.get('/', authenticate, ctrl.listSuppliers);
 
-router.get('/:id', authenticate, isValidId, ctrl.getSupplierById);
-
 router.post(
   '/',
   authenticate,

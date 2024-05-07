@@ -9,7 +9,6 @@ const productSchema = new Schema(
     },
     name: {
       type: String,
-      required: [true, 'Set name for product'],
     },
     suppliers: {
       type: String,
@@ -18,17 +17,10 @@ const productSchema = new Schema(
       type: String,
     },
     price: {
-      type: Boolean,
       type: String,
     },
     category: {
-      type: Boolean,
       type: String,
-    },
-    owner: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-      required: true,
     },
   },
   { versionKey: false, timestamps: true }

@@ -3,20 +3,18 @@ import { HttpError } from '../helpers/HttpError.js';
 import { ctrlWrapper } from '../helpers/ctrlWrapper.js';
 
 export const listProducts = async (req, res) => {
-  const { _id: owner } = req.user;
   const { page = 1, limit = 5 } = req.query;
   const skip = (page - 1) * limit;
-  const result = await Product.find({ owner }, '-createdAt -updatedAt', {
+  const result = await Product.find({
     skip,
     limit,
-  }).populate('owner', 'subscription');
+  })
   res.json(result);
 };
 
 export const getProductById = async (req, res) => {
-  const { _id: owner } = req.user;
   const { id } = req.params;
-  const result = await Product.findById(id, owner);
+  const result = await Product.findById(id);
   if (!result) {
     throw HttpError(404);
   }
@@ -24,15 +22,13 @@ export const getProductById = async (req, res) => {
 };
 
 export const addProduct = async (req, res) => {
-  const { _id: owner } = req.user;
-  const result = await Product.create({ ...req.body, owner });
+  const result = await Product.create({ ...req.body });
   res.status(201).json(result);
 };
 
 export const updateProduct = async (req, res) => {
-  const { _id: owner } = req.user;
   const { id } = req.params;
-  const result = await Product.findByIdAndUpdate(owner, id, req.body, {
+  const result = await Product.findByIdAndUpdate(id, req.body, {
     new: true,
   });
   if (!result) {
@@ -42,9 +38,8 @@ export const updateProduct = async (req, res) => {
 };
 
 export const removeProduct = async (req, res) => {
-  const { _id: owner } = req.user;
   const { id } = req.params;
-  const result = await Product.findByIdAndDelete(id, owner);
+  const result = await Product.findByIdAndDelete(id);
   if (!result) {
     throw HttpError(404);
   }

@@ -24,11 +24,6 @@ const orderSchema = new Schema(
     order_date: {
       type: String,
     },
-    owner: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-      required: true,
-    },
   },
   { versionKey: false, timestamps: true }
 );

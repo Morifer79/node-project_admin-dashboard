@@ -6,7 +6,6 @@ const supplierSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, 'Set name for supplier'],
     },
     address: {
       type: String,
@@ -18,17 +17,10 @@ const supplierSchema = new Schema(
       type: String,
     },
     amount: {
-      type: Boolean,
       type: String,
     },
     status: {
-      type: Boolean,
       type: String,
-    },
-    owner: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-      required: true,
     },
   },
   { versionKey: false, timestamps: true }
