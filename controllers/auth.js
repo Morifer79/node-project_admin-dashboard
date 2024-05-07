@@ -7,7 +7,7 @@ import bcryptjs from 'bcryptjs';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const { SECRET_KEY, BASE_URL } = process.env;
+const { SECRET_KEY } = process.env;
 
 export const register = async (req, res) => {
   const { email, password } = req.body;
@@ -28,7 +28,6 @@ export const register = async (req, res) => {
   res.status(201).json({
     user: {
       email: newUser.email,
-      subscription: newUser.subscription,
     },
   });
 };
@@ -57,17 +56,15 @@ export const login = async (req, res) => {
     token,
     user: {
       email: user.email,
-      subscription: user.subscription,
     },
   });
 };
 
 export const getCurrent = async (req, res) => {
-  const { email, subscription } = req.user;
+  const { email } = req.user;
 
   res.json({
     email,
-    subscription,
   });
 };
 
@@ -78,22 +75,9 @@ const logout = async (req, res) => {
   res.status(204).json();
 };
 
-const updateSubscription = async (req, res) => {
-  const { subscription } = req.body;
-  const { _id: owner } = req.user;
-  const result = await User.findByIdAndUpdate(
-    owner,
-    { subscription },
-    { new: true }
-  );
-
-  res.json(result);
-};
-
 export default {
   register: ctrlWrapper(register),
   login: ctrlWrapper(login),
   logout: ctrlWrapper(logout),
   getCurrent: ctrlWrapper(getCurrent),
-  updateSubscription: ctrlWrapper(updateSubscription),
 };
