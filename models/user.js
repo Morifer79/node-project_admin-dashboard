@@ -18,10 +18,6 @@ const userSchema = new Schema(
       required: [true, 'Email is required'],
     },
     token: String,
-    verify: {
-      type: Boolean,
-      default: false,
-    },
     verificationToken: {
       type: String,
       required: [true, 'Verify token is required'],
