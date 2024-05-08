@@ -12,7 +12,7 @@ const getCustomerByID = async (req, res) => {
   const { id } = req.params;
   const result = await Customer.findById(id);
   if (!result) {
-    return res.status(404).json({ message: 'Customer not found' });
+    return res.status(404);
   }
   res.json(result);
 };
