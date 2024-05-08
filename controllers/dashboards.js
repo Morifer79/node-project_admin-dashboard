@@ -10,8 +10,7 @@ const listDashboard = async (_, res) => {
   const customersCount = await Customer.countDocuments();
 
   const recentCustomers = await (await Customer.find()).splice(customersCount - 5, customersCount);
-
-  const incomeExpenses = await Income.find().limit(6);
+  const incomeExpenses = await Income.find();
 
   res.json({
     suppliersCount,

@@ -6,6 +6,7 @@ import ordersRouter from './routes/api/orders.js';
 import productsRouter from './routes/api/products.js';
 import suppliersRouter from './routes/api/suppliers.js';
 import dashboardsRouter from './routes/api/dashboards.js';
+import incomesRouter from './routes/api/incomes.js';
 import authRouter from "./routes/api/auth.js";
 import dotenv from "dotenv";
 
@@ -24,6 +25,7 @@ app.use("/api/orders", ordersRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/suppliers', suppliersRouter);
 app.use('/api/dashboard', dashboardsRouter);
+app.use('/api/incomes', incomesRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: "Not found" });
