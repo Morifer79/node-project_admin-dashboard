@@ -4,24 +4,12 @@ import { handleMongooseError } from '../helpers/handleMongooseError.js';
 
 const supplierSchema = new Schema(
   {
-    name: {
-      type: String,
-    },
-    address: {
-      type: String,
-    },
-    suppliers: {
-      type: String,
-    },
-    date: {
-      type: String,
-    },
-    amount: {
-      type: String,
-    },
-    status: {
-      type: String,
-    },
+    name: { type: String },
+    address: { type: String },
+    suppliers: { type: String },
+    date: { type: String },
+    amount: { type: String },
+    status: { type: String },
   },
   { versionKey: false, timestamps: true }
 );
@@ -49,8 +37,6 @@ const addSchema = Joi.object({
     .messages({ 'any.required': 'missing required status field' }),
 });
 
-export const schemas = {
-  addSchema,
-};
+export const schemas = {addSchema};
 
 export const Supplier = model('supplier', supplierSchema);

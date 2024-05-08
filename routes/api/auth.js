@@ -7,11 +7,8 @@ import ctrl from '../../controllers/auth.js';
 const router = express.Router();
 
 router.post('/register', validateBody(schemas.registerSchema), ctrl.register);
-
-router.post('/login', validateBody(schemas.loginSchema), ctrl.login);
-
+router.post('/login', validateBody(schemas.registerSchema), ctrl.login);
 router.get('/user-info', authenticate, ctrl.getCurrent);
-
 router.post('/logout', authenticate, ctrl.logout);
 
 export default router;

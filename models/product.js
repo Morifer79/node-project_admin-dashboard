@@ -4,24 +4,12 @@ import { handleMongooseError } from '../helpers/handleMongooseError.js';
 
 const productSchema = new Schema(
   {
-    image: {
-      type: String,
-    },
-    name: {
-      type: String,
-    },
-    suppliers: {
-      type: String,
-    },
-    stock: {
-      type: String,
-    },
-    price: {
-      type: String,
-    },
-    category: {
-      type: String,
-    },
+    image: { type: String },
+    name: { type: String },
+    suppliers: { type: String },
+    stock: { type: String },
+    price: { type: String },
+    category: { type: String },
   },
   { versionKey: false, timestamps: true }
 );
@@ -47,8 +35,6 @@ const addSchema = Joi.object({
     .messages({ 'any.required': 'missing required category field' }),
 });
 
-export const schemas = {
-  addSchema,
-};
+export const schemas = {addSchema};
 
 export const Product = model('product', productSchema);

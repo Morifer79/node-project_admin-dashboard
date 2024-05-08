@@ -3,27 +3,13 @@ import { handleMongooseError } from '../helpers/handleMongooseError.js';
 
 const orderSchema = new Schema(
   {
-    image: {
-      type: String,
-    },
-    name: {
-      type: String,
-    },
-    address: {
-      type: String,
-    },
-    products: {
-      type: String,
-    },
-    price: {
-      type: String,
-    },
-    status: {
-      type: String,
-    },
-    order_date: {
-      type: String,
-    },
+    image: { type: String },
+    name: { type: String },
+    address: { type: String },
+    products: { type: String },
+    price: { type: String },
+    status: { type: String },
+    order_date: { type: String },
   },
   { versionKey: false, timestamps: true }
 );

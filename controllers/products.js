@@ -5,10 +5,7 @@ import { ctrlWrapper } from '../helpers/ctrlWrapper.js';
 export const listProducts = async (req, res) => {
   const { page = 1, limit = 5 } = req.query;
   const skip = (page - 1) * limit;
-  const result = await Product.find({
-    skip,
-    limit,
-  })
+  const result = await Product.find({ skip, limit });
   res.json(result);
 };
 
@@ -28,9 +25,7 @@ export const addProduct = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
-  const result = await Product.findByIdAndUpdate(id, req.body, {
-    new: true,
-  });
+  const result = await Product.findByIdAndUpdate(id, req.body, { new: true });
   if (!result) {
     throw HttpError(404);
   }
