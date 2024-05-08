@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { handleMongooseError } from '../helpers/handleMongooseError.js';
 
 const incomeSchema = new Schema(
   {
@@ -8,5 +9,7 @@ const incomeSchema = new Schema(
   },
   { versionKey: false, timestamps: true }
 );
+
+incomeSchema.post('save', handleMongooseError);
 
 export const Income = model('income', incomeSchema);

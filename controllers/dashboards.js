@@ -4,7 +4,7 @@ import { Customer } from '../models/customer.js';
 import { Income } from '../models/income.js';
 import { ctrlWrapper } from '../helpers/ctrlWrapper.js';
 
-const listDashboard = async (req, res) => {
+const listDashboard = async (_, res) => {
   const suppliersCount = await Supplier.countDocuments();
   const productsCount = await Product.countDocuments();
   const customersCount = await Customer.countDocuments();
