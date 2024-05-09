@@ -5,7 +5,8 @@ export const listOrders = async (req, res) => {
   const { page = '1', limit = '5' } = req.query;
   const limitNumber = parseInt(limit);
   const pageNumber = parseInt(page);
-   const skipNumber = (pageNumber - 1) * limitNumber;
+  const skipNumber = (pageNumber - 1) * limitNumber;
+  const totalOrders = await Order.countDocuments();
   const result = await Order.find()
     .skip(skipNumber)
     .limit(limitNumber);
@@ -14,6 +15,7 @@ export const listOrders = async (req, res) => {
     result,
     limit: limitNumber,
     page: pageNumber,
+    total: totalOrders,
   });
 };
 
