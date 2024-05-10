@@ -23,7 +23,7 @@ router.put(
   authenticate,
   isValidId,
   validateField,
-  validateBody(schemas.addSchema),
+  validateBody(schemas.updateSchema),
   ctrl.updateSupplier
 );
 

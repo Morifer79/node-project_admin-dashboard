@@ -37,6 +37,15 @@ const addSchema = Joi.object({
     .messages({ 'any.required': 'missing required status field' }),
 });
 
-export const schemas = {addSchema};
+const updateSchema = Joi.object({
+  name: Joi.string(),
+  address: Joi.string(),
+  suppliers: Joi.string(),
+  date: Joi.string(),
+  amount: Joi.string(),
+  status: Joi.string(),
+});
+
+export const schemas = { addSchema, updateSchema };
 
 export const Supplier = model('supplier', supplierSchema);
