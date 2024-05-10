@@ -3,10 +3,19 @@ import { HttpError } from '../helpers/HttpError.js';
 import { ctrlWrapper } from '../helpers/ctrlWrapper.js';
 
 export const listProducts = async (req, res) => {
-  const { page = 1, limit = 5 } = req.query;
-  const skip = (page - 1) * limit;
-  const result = await Product.find({ skip, limit });
-  res.json(result);
+  const { page = '1', limit = '5' } = req.query;
+  const limitNumber = parseInt(limit);
+  const pageNumber = parseInt(page);
+  const skipNumber = (pageNumber - 1) * limitNumber;
+  const totalProducts = await Product.countDocuments();
+  const result = await Product.find().skip(skipNumber).limit(limitNumber);
+
+  res.json({
+    result,
+    limit: limitNumber,
+    page: pageNumber,
+    total: totalProducts,
+  });
 };
 
 export const getProductById = async (req, res) => {
