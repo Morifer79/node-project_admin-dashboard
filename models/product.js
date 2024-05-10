@@ -18,21 +18,11 @@ productSchema.post('save', handleMongooseError);
 
 const addSchema = Joi.object({
   image: Joi.string(),
-  name: Joi.string()
-    .required()
-    .messages({ 'any.required': 'missing required name field' }),
-  suppliers: Joi.string()
-    .required()
-    .messages({ 'any.required': 'missing required suppliers field' }),
-  stock: Joi.string()
-    .required()
-    .messages({ 'any.required': 'missing required stock field' }),
-  price: Joi.string()
-    .required()
-    .messages({ 'any.required': 'missing required price field' }),
-  category: Joi.string()
-    .required()
-    .messages({ 'any.required': 'missing required category field' }),
+  name: Joi.string(),
+  suppliers: Joi.string(),
+  stock: Joi.string(),
+  price: Joi.string(),
+  category: Joi.string(),
 });
 
 export const schemas = {addSchema};
