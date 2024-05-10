@@ -5,7 +5,7 @@ import { handleMongooseError } from '../helpers/handleMongooseError.js';
 const productSchema = new Schema(
   {
     image: { type: String },
-    name: { type: String },
+    product: { type: String },
     suppliers: { type: String },
     stock: { type: String },
     price: { type: String },
@@ -18,9 +18,9 @@ productSchema.post('save', handleMongooseError);
 
 const addSchema = Joi.object({
   image: Joi.string(),
-  name: Joi.string()
+  product: Joi.string()
     .required()
-    .messages({ 'any.required': 'missing required name field' }),
+    .messages({ 'any.required': 'missing required product field' }),
   suppliers: Joi.string()
     .required()
     .messages({ 'any.required': 'missing required suppliers field' }),
