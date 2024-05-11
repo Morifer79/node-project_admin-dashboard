@@ -3,11 +3,12 @@ import { ctrlWrapper } from '../helpers/ctrlWrapper.js';
 
 export const listOrders = async (req, res) => {
   const { page = '1', limit = '5', name } = req.query;
+  const searchValue = name ? { name: { $regex: name, $options: 'i' } } : {};
   const limitNumber = parseInt(limit);
   const pageNumber = parseInt(page);
   const skipNumber = (pageNumber - 1) * limitNumber;
-  const totalOrders = await Order.countDocuments();
-  const result = await Order.find({name})
+  const totalOrders = await Order.countDocuments(searchValue);
+  const result = await Order.find(searchValue)
     .skip(skipNumber)
     .limit(limitNumber);
 
