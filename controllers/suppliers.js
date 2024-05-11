@@ -43,13 +43,11 @@ export const updateSupplier = async (req, res) => {
     throw HttpError(404);
   }
 
-  const dataObj = result.toObject();
+  const date = dayjs(result.date);
+  const formattedDate = date.format('MMMM D, YYYY');
+  result.date = formattedDate;
 
-  if (dataObj.date) {
-    dataObj = dayjs(dataObj.date).format('MMMM D, YYYY');
-  }
-
-  res.json(dataObj);
+  res.json(result);
 };
 
 export default {
