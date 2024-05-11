@@ -3,12 +3,15 @@ import { HttpError } from '../helpers/HttpError.js';
 import { ctrlWrapper } from '../helpers/ctrlWrapper.js';
 
 export const listProducts = async (req, res) => {
-  const { page = '1', limit = '5' } = req.query;
+  const { page = '1', limit = '5', name } = req.query;
+  const searchValue = name ? { name: { $regex: name, $options: 'i' } } : {};
   const limitNumber = parseInt(limit);
   const pageNumber = parseInt(page);
   const skipNumber = (pageNumber - 1) * limitNumber;
-  const totalProducts = await Product.countDocuments();
-  const result = await Product.find().skip(skipNumber).limit(limitNumber);
+  const totalProducts = await Product.countDocuments(searchValue);
+  const result = await Product.find(searchValue)
+    .skip(skipNumber)
+    .limit(limitNumber);
 
   res.json({
     result,
