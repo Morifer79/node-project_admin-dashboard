@@ -42,11 +42,14 @@ export const updateSupplier = async (req, res) => {
   if (!result) {
     throw HttpError(404);
   }
-  if (result.date) {
-    result.date = dayjs(result.date).format('MMMM D, YYYY');
+
+  const dataObj = result.toObject();
+
+  if (dataObj.date) {
+    dataObj = dayjs(dataObj.date).format('MMMM D, YYYY');
   }
 
-  res.json(result);
+  res.json(dataObj);
 };
 
 export default {
