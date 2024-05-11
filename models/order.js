@@ -6,10 +6,10 @@ const orderSchema = new Schema(
     image: { type: String },
     name: { type: String },
     address: { type: String },
-    products: { type: String },
-    price: { type: String },
+    products: { type: Number },
+    price: { type: Number },
     status: { type: String },
-    order_date: { type: String },
+    order_date: { type: Date },
   },
   { versionKey: false, timestamps: true }
 );

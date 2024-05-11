@@ -9,7 +9,7 @@ const customerSchema = new Schema(
     spent: { type: String },
     phone: { type: String },
     address: { type: String },
-    register_date: { type: String },
+    register_date: { type: Date },
   },
   { versionKey: false, timestamps: false }
 );
