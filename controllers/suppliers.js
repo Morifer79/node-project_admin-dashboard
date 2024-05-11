@@ -1,6 +1,7 @@
 import { Supplier } from '../models/supplier.js';
 import { HttpError } from '../helpers/HttpError.js';
 import { ctrlWrapper } from '../helpers/ctrlWrapper.js';
+import dayjs from 'dayjs';
 
 export const listSuppliers = async (req, res) => {
   const { page = '1', limit = '5', name } = req.query;
@@ -41,6 +42,10 @@ export const updateSupplier = async (req, res) => {
   if (!result) {
     throw HttpError(404);
   }
+  if (result.date) {
+    result.date = dayjs(result.date).format('MMMM D, YYYY');
+  }
+
   res.json(result);
 };
 

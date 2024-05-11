@@ -7,9 +7,9 @@ const supplierSchema = new Schema(
     name: { type: String },
     address: { type: String },
     suppliers: { type: String },
-    date: { type: String },
+    date: { type: Date },
     amount: { type: String },
-    status: { type: String },
+    status: { type: String, enum: ['Active', 'Deactive'] },
   },
   { versionKey: false, timestamps: true }
 );
@@ -26,13 +26,14 @@ const addSchema = Joi.object({
   suppliers: Joi.string()
     .required()
     .messages({ 'any.required': 'missing required suppliers field' }),
-  date: Joi.string()
+  date: Joi.date()
     .required()
     .messages({ 'any.required': 'missing required date field' }),
   amount: Joi.string()
     .required()
     .messages({ 'any.required': 'missing required amount field' }),
   status: Joi.string()
+    .valid('Active', 'Deactive')
     .required()
     .messages({ 'any.required': 'missing required status field' }),
 });
