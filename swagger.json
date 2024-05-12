@@ -1,0 +1,1209 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Medicine store",
+    "description": "Medicine store backend documentation",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://node-project-admin-dashboard.onrender.com/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Dashboard",
+      "description": "Basic statistics"
+    },
+    {
+      "name": "Orders",
+      "description": "Orders data"
+    },
+    {
+      "name": "Products",
+      "description": "Products endpoints"
+    },
+    {
+      "name": "Suppliers",
+      "description": "Suppliers endpoints"
+    },
+    {
+      "name": "Customers",
+      "description": "Customers data"
+    }
+  ],
+  "paths": {
+    "/user/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "User registration",
+        "operationId": "register",
+        "requestBody": {
+          "required": true,
+          "description": "Register object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)"
+          },
+          "404": {
+            "description": "Service not found"
+          },
+          "409": {
+            "description": "Such email already exists"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "User login",
+        "operationId": "login",
+        "requestBody": {
+          "required": true,
+          "description": "Login object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)"
+          },
+          "401": {
+            "description": "Email or password invalid"
+          },
+          "404": {
+            "description": "Service not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/user-info": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Get current user info",
+        "operationId": "getCurrent",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCurrentResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "User logout",
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoutResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/dashboard": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "Get basic statistics",
+        "operationId": "listDashboard",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dashboard"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Get orders list",
+        "operationId": "listOrders",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Orders"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Get all products",
+        "operationId": "listProducts",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Products"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Create new product",
+        "operationId": "addProduct",
+        "requestBody": {
+          "required": true,
+          "description": "Create object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)"
+          },
+          "404": {
+            "description": "Service not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Update exist product",
+        "operationId": "updateProduct",
+        "requestBody": {
+          "description": "There are no required fields, but one must be filled in (which is logical)",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductsUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductsUpdateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)"
+          },
+          "404": {
+            "description": "Service not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Delete product",
+        "operationId": "removeProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "401": {
+            "description": "This product not found"
+          },
+          "404": {
+            "description": "Service not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/suppliers": {
+      "get": {
+        "tags": [
+          "Suppliers"
+        ],
+        "summary": "Get all suppliers",
+        "operationId": "listSuppliers",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Suppliers"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Suppliers"
+        ],
+        "summary": "Create new supplier",
+        "operationId": "addSupplier",
+        "requestBody": {
+          "required": true,
+          "description": "Create object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SuppliersRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuppliersResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)"
+          },
+          "404": {
+            "description": "Service not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/suppliers/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "tags": [
+          "Suppliers"
+        ],
+        "summary": "Update exist supplier",
+        "operationId": "updateSupplier",
+        "requestBody": {
+          "description": "There are no required fields, but one must be filled in (which is logical)",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SuppliersUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuppliersUpdateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)"
+          },
+          "404": {
+            "description": "Service not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/customers": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Get all customers",
+        "operationId": "listCustomers",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Customers"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@email.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "1234567"
+          }
+        }
+      },
+      "RegisterResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@email.com"
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjFlMjVmNmIwYTJjY2I5NTU5MWVjNyIsImlhdCI6MTY4OTM3OTQyMywiZXhwIjoxNjg5NDYyMjIzfQ.hT2Ta6pBhDR1vOF7LjcKxofyASDPjcTZtFi9CESKIuA"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@email.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "1234567"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@email.com"
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjFlMjVmNmIwYTJjY2I5NTU5MWVjNyIsImlhdCI6MTY4OTM3OTQyMywiZXhwIjoxNjg5NDYyMjIzfQ.hT2Ta6pBhDR1vOF7LjcKxofyASDPjcTZtFi9CESKIuA"
+          }
+        }
+      },
+      "GetCurrentResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "64b1e25f6b0a2ccb95591ec7"
+          },
+          "email": {
+            "type": "string",
+            "example": "test@email.com"
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjFlMjVmNmIwYTJjY2I5NTU5MWVjNyIsImlhdCI6MTY4OTM3OTQyMywiZXhwIjoxNjg5NDYyMjIzfQ.hT2Ta6pBhDR1vOF7LjcKxofyASDPjcTZtFi9CESKIuA"
+          }
+        }
+      },
+      "LogoutResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Sign out success"
+          }
+        }
+      },
+      "Dashboard": {
+        "type": "object",
+        "properties": {
+          "suppliersCount": {
+            "type": "integer",
+            "example": 6
+          },
+          "productsCount": {
+            "type": "integer",
+            "example": 61
+          },
+          "customersCount": {
+            "type": "integer",
+            "example": 88
+          },
+          "recentCustomers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecentCustomers"
+            }
+          },
+          "incomeExpenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IncomeExpense"
+            }
+          }
+        }
+      },
+      "RecentCustomers": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "663a2299c49128b0b24d54b4"
+          },
+          "image": {
+            "type": "string",
+            "example": "https://i.imgur.com/FHMKqK5.png"
+          },
+          "name": {
+            "type": "string",
+            "example": "Anatolii Zhukov"
+          },
+          "email": {
+            "type": "string",
+            "example": "anatolii.zhukov@gmail.com"
+          },
+          "spent": {
+            "type": "string",
+            "example": "3,200.50"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+380715674901"
+          },
+          "address": {
+            "type": "string",
+            "example": "Sviatoshynska, Bldg. 3, Apt. 18"
+          },
+          "register_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-03-15T00:00:00.000Z"
+          }
+        }
+      },
+      "IncomeExpense": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "663b8932bacd40b1e1884cf4"
+          },
+          "name": {
+            "type": "string",
+            "example": "Qonto billing"
+          },
+          "amount": {
+            "type": "string",
+            "example": "-49.88"
+          },
+          "type": {
+            "type": "string",
+            "example": "Expense"
+          }
+        }
+      },
+      "Orders": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrdersResult"
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "example": 5
+          },
+          "page": {
+            "type": "integer",
+            "example": 1
+          },
+          "total": {
+            "type": "integer",
+            "example": 25
+          }
+        }
+      },
+      "OrdersResult": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "663a2285c49128b0b24d5447"
+          },
+          "image": {
+            "type": "string",
+            "example": "https://i.imgur.com/1As0akH.png1"
+          },
+          "name": {
+            "type": "string",
+            "example": "Taras Shevchenko"
+          },
+          "address": {
+            "type": "string",
+            "example": "Reitarska, Bldg. 38, Apt. 75"
+          },
+          "products": {
+            "type": "integer",
+            "example": 10
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "example": 567.34
+          },
+          "status": {
+            "type": "string",
+            "example": "Processing"
+          },
+          "order_date": {
+            "type": "string",
+            "example": "2023-07-31T00:00:00.000Z"
+          }
+        }
+      },
+      "Products": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductsResult"
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "example": 5
+          },
+          "page": {
+            "type": "integer",
+            "example": 1
+          },
+          "total": {
+            "type": "integer",
+            "example": 61
+          }
+        }
+      },
+      "ProductsResult": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "663fc06afc2c1987dae3e430"
+          },
+          "image": {
+            "type": "string",
+            "example": "https://i.ibb.co/bLKP624/5-15-1000x1000-min.jpg"
+          },
+          "name": {
+            "type": "string",
+            "example": "Aspirin"
+          },
+          "suppliers": {
+            "type": "string",
+            "example": "Square"
+          },
+          "stock": {
+            "type": "integer",
+            "example": 10
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "example": 567.34
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "Medicine",
+              "Head",
+              "Hand",
+              "Dental Care",
+              "Skin Care",
+              "Eye Care",
+              "Vitamins & Supplements'",
+              "Orthopedic Products'",
+              "Baby Care,"
+            ],
+            "example": "Medicine"
+          }
+        }
+      },
+      "ProductsRequest": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string",
+            "example": "https://e-med.com.ua/files/resized/products/vizin_alerdzhi_0_05_4ml_kapli_glaznye.700x800.jpg"
+          },
+          "name": {
+            "type": "string",
+            "example": "Vizin"
+          },
+          "suppliers": {
+            "type": "string",
+            "example": "Square66"
+          },
+          "stock": {
+            "type": "integer",
+            "example": 36
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "example": 50.75
+          },
+          "category": {
+            "type": "string",
+            "example": "Eye Care"
+          }
+        }
+      },
+      "ProductsResponse": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string",
+            "example": "https://e-med.com.ua/files/resized/products/vizin_alerdzhi_0_05_4ml_kapli_glaznye.700x800.jpg"
+          },
+          "name": {
+            "type": "string",
+            "example": "Vizin"
+          },
+          "suppliers": {
+            "type": "string",
+            "example": "Square66"
+          },
+          "stock": {
+            "type": "integer",
+            "example": 36
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "example": 50.75
+          },
+          "category": {
+            "type": "string",
+            "example": "Eye Care"
+          },
+          "_id": {
+            "type": "string",
+            "example": "6640ed463ec0742453269ad1"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2024-05-12T16:24:38.800Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2024-05-12T16:24:38.800Z"
+          }
+        }
+      },
+      "ProductsUpdateRequest": {
+        "type": "object",
+        "required": [
+          "_id"
+        ],
+        "properties": {
+          "price": {
+            "type": "number",
+            "format": "float",
+            "example": 62.99
+          }
+        }
+      },
+      "ProductsUpdateResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "6640ed463ec0742453269ad1"
+          },
+          "image": {
+            "type": "string",
+            "example": "https://e-med.com.ua/files/resized/products/vizin_alerdzhi_0_05_4ml_kapli_glaznye.700x800.jpg"
+          },
+          "name": {
+            "type": "string",
+            "example": "Vizin"
+          },
+          "suppliers": {
+            "type": "string",
+            "example": "Square66"
+          },
+          "stock": {
+            "type": "integer",
+            "example": 36
+          },
+          "price": {
+            "type": "number",
+            "format": "float",
+            "example": 62.99
+          },
+          "category": {
+            "type": "string",
+            "example": "Eye Care"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2024-05-12T16:24:38.800Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2024-05-12T20:06:25.800Z"
+          }
+        }
+      },
+      "Suppliers": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SuppliersResult"
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "example": 5
+          },
+          "page": {
+            "type": "integer",
+            "example": 1
+          },
+          "total": {
+            "type": "integer",
+            "example": 6
+          }
+        }
+      },
+      "SuppliersResult": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "663a224bc49128b0b24d5441"
+          },
+          "name": {
+            "type": "string",
+            "example": "Alex Shatov"
+          },
+          "address": {
+            "type": "string",
+            "example": "Mripur-1"
+          },
+          "suppliers": {
+            "type": "string",
+            "example": "Square"
+          },
+          "date": {
+            "type": "string",
+            "example": "2023-09-19T00:00:00.000Z"
+          },
+          "amount": {
+            "type": "string",
+            "example": "6952.53"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "Active",
+              "Dective"
+            ],
+            "example": "Active"
+          }
+        }
+      },
+      "SuppliersRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Bob Dou"
+          },
+          "address": {
+            "type": "string",
+            "example": "Mripur-5"
+          },
+          "suppliers": {
+            "type": "string",
+            "example": "Square66"
+          },
+          "date": {
+            "type": "string",
+            "example": "2024-05-21T00:00:00.000Z"
+          },
+          "amount": {
+            "type": "string",
+            "example": "6950.28"
+          },
+          "status": {
+            "type": "string",
+            "example": "Active"
+          }
+        }
+      },
+      "SuppliersResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Bob Dou"
+          },
+          "address": {
+            "type": "string",
+            "example": "Mripur-5"
+          },
+          "suppliers": {
+            "type": "string",
+            "example": "Square66"
+          },
+          "date": {
+            "type": "string",
+            "example": "2024-05-21T00:00:00.000Z"
+          },
+          "amount": {
+            "type": "string",
+            "example": "6950.28"
+          },
+          "status": {
+            "type": "string",
+            "example": "Active"
+          },
+          "_id": {
+            "type": "string",
+            "example": "66410b6175d86fa99f5c33e8"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2024-05-12T18:33:05.503Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2024-05-12T18:33:05.503Z"
+          }
+        }
+      },
+      "SuppliersUpdateRequest": {
+        "type": "object",
+        "required": [
+          "_id"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "Deactive"
+          }
+        }
+      },
+      "SuppliersUpdateResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "66410b6175d86fa99f5c33e8"
+          },
+          "name": {
+            "type": "string",
+            "example": "Bob Dou"
+          },
+          "address": {
+            "type": "string",
+            "example": "Mripur-5"
+          },
+          "suppliers": {
+            "type": "string",
+            "example": "Square66"
+          },
+          "date": {
+            "type": "string",
+            "example": "2024-05-21T00:00:00.000Z"
+          },
+          "amount": {
+            "type": "string",
+            "example": "6950.28"
+          },
+          "status": {
+            "type": "string",
+            "example": "Dective"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2024-05-12T18:33:05.503Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2024-05-12T18:46:48.114Z"
+          }
+        }
+      },
+      "Customers": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "663a2299c49128b0b24d5464"
+          },
+          "image": {
+            "type": "string",
+            "example": "https://i.imgur.com/FHMKqK5.png"
+          },
+          "name": {
+            "type": "string",
+            "example": "Iryna Melnyk"
+          },
+          "email": {
+            "type": "string",
+            "example": "iryna.melnyk@gmail.com"
+          },
+          "spent": {
+            "type": "string",
+            "example": "2,150.00"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+380104567890"
+          },
+          "address": {
+            "type": "string",
+            "example": "Peremohy Ave, Bldg. 50, Apt. 81"
+          },
+          "register_date": {
+            "type": "string",
+            "example": "2024-03-04T00:00:00.000Z"
+          }
+        }
+      }
+    }
+  }
+}
